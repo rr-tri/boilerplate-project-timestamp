@@ -23,8 +23,8 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-// API route to handle date conversion
-app.get('/api/:date', (req, res) => {
+// API route to handle date conversion (with optional date)
+app.get('/api/:date?', (req, res) => {
   const { date } = req.params;
   console.log('params', req.params)
   console.log('date', date)

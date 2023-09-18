@@ -28,6 +28,11 @@ app.get('/api/:date', (req, res) => {
   const { date } = req.params;
   console.log('params', req.params)
   console.log('date', date)
+  if (!date) {
+    const currentUnixTimestamp = Date.now();
+    const currentUtcDate = new Date(currentUnixTimestamp).toUTCString();
+    return res.json({ unix: currentUnixTimestamp, utc: currentUtcDate });
+  }
   const inputDate = isNaN(date) ? new Date(date) : new Date(parseInt(date));
 
   if (isNaN(inputDate.getTime())) {

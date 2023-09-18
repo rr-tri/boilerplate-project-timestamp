@@ -23,7 +23,22 @@ app.get("/", function (req, res) {
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
+// API route to handle date conversion
+app.get('/api/:date', (req, res) => {
+  const { date } = req.params;
+  console.log('params', req.params)
+  console.log('date', date)
+  const inputDate = isNaN(date) ? new Date(date) : new Date(parseInt(date));
 
+  if (isNaN(inputDate.getTime())) {
+    return res.json({ error: 'Invalid date' });
+  }
+
+  const unixTimestamp = inputDate.getTime();
+  const utcDate = inputDate.toUTCString();
+
+  res.json({ unix: unixTimestamp, utc: utcDate });
+});
 
 
 // listen for requests :)
